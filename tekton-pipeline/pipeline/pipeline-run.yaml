@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: application-pipeline-run
+spec:
+  pipelineRef:
+    name: application-pipeline
+  resources:
+    - name: git-source
+      resourceRef:
+        name: git
+  params:
+    - name: pathToContext
+      value: "src"
+    - name: pathToYamlFile
+      value: "deploy.yaml"
+    - name: "imageUrl"
+      value: "us.icr.io/my_secand_namespace/my_repo"
+    - name: "imageTag"
+      value: "app:1.0"
+    - name: DOCKER_USERNAME
+      value: iamapikey
+    - name: DOCKER_PASSWORD
+      value: "sMgT0NdHbIqZSU_CVDKqZiNAA6xQdLL4eRH7K0eIeCfH" 
+  serviceAccountName: service-account
